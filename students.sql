@@ -1,7 +1,7 @@
 CREATE TABLE
 IF NOT EXISTS students
 (
-  matricula INTEGER PRIMARY KEY,
+  matricula INTEGER,
   nome VARCHAR
 (255) NOT NULL,
   sobrenome VARCHAR
@@ -87,5 +87,5 @@ INSERT INTO students
 SELECT 1009, 'Letícia', 'Drummound Lopes', 'leticia.lopes@example.com', '2154564563', 'Música', '1997-05-05', CURRENT_TIMESTAMP
 WHERE NOT EXISTS (SELECT 1
 FROM students
-WHERE matricula = 1008)
+WHERE matricula = 1009)
 LIMIT 1;

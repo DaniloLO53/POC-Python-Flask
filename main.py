@@ -32,7 +32,7 @@ def close_connection(exception):
 
 
 def init_db():
-    studentsSchemaPath = "./schemas/students.sql"
+    studentsSchemaPath = "students.sql"
 
     with app.app_context():
         db = get_db()
@@ -42,6 +42,19 @@ def init_db():
 
 
 init_db()
+
+
+@app.delete("/students/<matricula>")
+def destroy(matricula):
+    student = getStudent(f'{escape(matricula)}')
+    print(matricula)
+
+    query_db('DELETE FROM students WHERE matricula = ?',
+             [f'{escape(matricula)}'])
+
+    get_db().commit()  # Commit the changes to the database
+
+    return student
 
 
 @app.post("/students")
@@ -61,16 +74,20 @@ def create():
             studentData["updated_at"]
         ]
     )
-    students = getStudent(studentData["matricula"])
-    return students
+    print("Matricula no post: ", studentData["matricula"])
+
+    get_db().commit()  # Commit the changes to the database
+
+    student = getStudent(studentData["matricula"])
+    return student
 
 
 @app.get("/students")
 def getAll():
-    DbStudents = query_db('SELECT * FROM students')
+    dbStudents = query_db('SELECT * FROM students')
     students = []
 
-    for student in DbStudents:
+    for student in dbStudents:
         students.append({
             "Matrícula": student['matricula'],
             "Nome": student['nome'],
@@ -83,18 +100,22 @@ def getAll():
     return students
 
 
+@app.get("/students/<matricula>")
 def getStudent(matricula):
-    print("Matricula:", matricula)
+    print("Matricula no get: ", matricula)
 
     query = (
         "SELECT matricula, nome, sobrenome, email, telefone, curso, nascimento "
         "FROM students "
-        f"WHERE students.matricula = {matricula}"
+        "WHERE students.matricula = ?"
     )
 
-    student = query_db(query)
-    student_dict = dict(student[0])
-    return json.dumps(student_dict, default=str)
+    student = query_db(query, (int(matricula),))
+    print('Student: ', student)
+    if (len(student) != 0):
+        student_dict = dict(student[0])
+        return json.dumps(student_dict, default=str)
+    return {}
 
 # Diferença entre json.load e json.loads (erro )
 # https://stackoverflow.com/questions/6541767/python-urllib-error-attributeerror-bytes-object-has-no-attribute-read
