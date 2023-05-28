@@ -30,7 +30,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/danilo/0-myProjects/web_development_projects/POC-Python-Flask/POC-Python-Flask/.venv"
+set -gx VIRTUAL_ENV "/home/danilo/0-myProjects/web_development_projects/flaskr/flaskr/.venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

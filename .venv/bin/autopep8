@@ -1,4 +1,4 @@
-#!/home/danilo/0-myProjects/web_development_projects/POC-Python-Flask/POC-Python-Flask/.venv/bin/python
+#!/home/danilo/0-myProjects/web_development_projects/flaskr/flaskr/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

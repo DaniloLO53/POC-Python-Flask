@@ -3,6 +3,8 @@ import json
 from flask import Flask, g, request
 from markupsafe import escape
 
+
+
 DATABASE_PATH = "students.db"
 
 

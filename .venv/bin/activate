@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/danilo/0-myProjects/web_development_projects/POC-Python-Flask/POC-Python-Flask/.venv"
+VIRTUAL_ENV="/home/danilo/0-myProjects/web_development_projects/flaskr/flaskr/.venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
