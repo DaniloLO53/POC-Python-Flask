@@ -44,6 +44,32 @@ def init_db():
 init_db()
 
 
+@app.put("/students/<matricula>")
+def update(matricula):
+    studentData = json.loads(request.data)
+
+    query_db(
+        'UPDATE students SET matricula = ?, nome = ?, sobrenome = ?, email = ?, telefone = ?, curso = ?, nascimento = ?, updated_at = ? '
+        'WHERE students.matricula = ?',
+        [
+            studentData["matricula"],
+            studentData["nome"],
+            studentData["sobrenome"],
+            studentData["email"],
+            studentData["telefone"],
+            studentData["curso"],
+            studentData["nascimento"],
+            studentData["updated_at"],
+            matricula
+        ]
+    )
+
+    get_db().commit()  # Commit the changes to the database
+
+    student = getStudent(studentData["matricula"])
+    return student
+
+
 @app.delete("/students/<matricula>")
 def destroy(matricula):
     student = getStudent(f'{escape(matricula)}')
