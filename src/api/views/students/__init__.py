@@ -6,12 +6,16 @@ from functools import wraps
 studentBp = Blueprint('student', __name__)
 
 
-def wrap(*funcs):
+def wrap(*funcs):  # recebe os middlewares e o controller
+    # a requisição passa por todos os middlewares e o controller que essa função recebe
+    # no fim, é retornado o retorno do controller (a resposta http final)
     def wrapped(*args, **kwargs):
         finalReturn = None
         for func in funcs:
+            # middlewares controller recebe os
             finalReturn = func(*args, **kwargs)
-        return finalReturn
+            # argumentos e valores que estao sendo passados para wrapped
+        return finalReturn  # retorna a reposta http do ultimo controller
     return wrapped
 
 
