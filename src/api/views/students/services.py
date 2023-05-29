@@ -8,53 +8,48 @@ from ...utils.messages import messages
 def findAllStudents():
     dbStudents = findAll()
     student_dict_array = [dict(data) for data in dbStudents]
-    return jsonify(student_dict_array)
+    return student_dict_array
 
 
-def findStudentByEmail(email):
-    dbStudent = findByEmail(email)
-    if (len(dbStudent) != 0):
-        return dict(dbStudent[0])
-    return {}
+def findStudent(data, dataType="registration"):
+    dbStudent = findByEmail(
+        data) if dataType == "email" else findByMatricula(data)
 
-
-def findStudentByRegistration(matricula):
-    dbStudent = findByMatricula(matricula)
     if (len(dbStudent) != 0):
         return dict(dbStudent[0])
     return {}
 
 
 def postStudent(studentData):
-    previousStudentByEmail = findStudentByEmail(studentData["email"])
-    previousStudentByRegistration = findStudentByRegistration(
+    previousStudentByEmail = findStudent(studentData["email"], "email")
+    previousStudentByRegistration = findStudent(
         studentData["matricula"]
     )
 
-    if len(previousStudentByEmail) != 0 | len(previousStudentByRegistration) != 0:
-        abort(statusCodes.CONFLICT, messages.STUDENT_NOT_FOUND)
+    if len(previousStudentByEmail) != 0 or len(previousStudentByRegistration) != 0:
+        abort(statusCodes.CONFLICT, messages.STUDENT_ALREADY_REGISTERED)
     insertStudent(studentData)
 
-    student = findStudentByRegistration(studentData["matricula"])
-    return jsonify(student)
+    student = findStudent(studentData["matricula"])
+    return student
 
 
 def updateStudentByMatricula(matricula, studentData):
-    outdatedStudent = findStudentByRegistration(matricula)
+    outdatedStudent = findStudent(matricula)
     if len(outdatedStudent) == 0:
         abort(statusCodes.NOT_FOUND, messages.STUDENT_NOT_FOUND)
 
     updateStudent(matricula, studentData)
 
-    student = findStudentByRegistration(studentData["matricula"])
-    return jsonify(student)
+    student = findStudent(studentData["matricula"])
+    return student
 
 
 def destroyStudent(matricula):
-    student = findStudentByRegistration(matricula)
+    student = findStudent(matricula)
     if len(student) == 0:
         abort(statusCodes.NOT_FOUND, messages.STUDENT_NOT_FOUND)
 
     removeStudent(matricula)
 
-    return jsonify(student)
+    return student
