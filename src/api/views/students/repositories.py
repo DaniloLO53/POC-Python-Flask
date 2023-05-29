@@ -1,4 +1,5 @@
 import json
+import time
 from src.database import query_db, get_db
 from markupsafe import escape
 
@@ -39,7 +40,7 @@ def insertStudent(studentData):
             studentData["telefone"],
             studentData["curso"],
             studentData["nascimento"],
-            studentData["updated_at"]
+            int(time.time())
         ]
     )
     print("Matricula no post: ", studentData["matricula"])
@@ -60,7 +61,7 @@ def updateStudent(matricula, studentData):
             studentData["telefone"],
             studentData["curso"],
             studentData["nascimento"],
-            studentData["updated_at"],
+            int(time.time()),
             matricula
         ]
     )
