@@ -108,7 +108,7 @@
       <br>
     </li>
     <li>
-      <h3>:green_square: GET /students/1001</h3>
+      <h3>:green_square: GET /students/:matricula</h3>
       <span><strong>Payload:</strong> Nenhum</span>
       <br>
       <span><strong>Resposta:</strong> JSON com dados do estudante</span>
@@ -157,7 +157,7 @@
       <br>
     </li>
     <li>
-      <h3>:yellow_square: PUT /students/1001</h3>
+      <h3>:yellow_square: PUT /students/:matricula</h3>
       <span><strong>Payload:</strong> JSON com dados do estudante</span>
       <br>
       <span><strong>Resposta:</strong> JSON com dados atualizados do estudante</span>
@@ -182,7 +182,7 @@
       <br>
     </li>
     <li>
-      <h3>:red_square: DELETE /students/1001</h3>
+      <h3>:red_square: DELETE /students/:matricula</h3>
       <span><strong>Payload:</strong> Nenhum</span>
       <br>
       <span><strong>Resposta:</strong> JSON com dados do estudante removido</span>
