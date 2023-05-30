@@ -1,6 +1,5 @@
 from faker import Faker
-import json
-from src.api.views.students.services import findAllStudents, findByMatricula
+from src.api.views.students.services import findAllStudents
 
 fake = Faker()
 
