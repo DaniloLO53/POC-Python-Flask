@@ -7,9 +7,9 @@ from werkzeug.exceptions import HTTPException
 from flask import jsonify
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def app():
-    app = create_app("students_test.db")
+    app = create_app('students_test.db')
 
     # Limpa o banco de dados após todos os testes da sessão serem concluídos
     from src.database.database_path import DATABASE_PATH
@@ -20,7 +20,7 @@ def app():
     @app.errorhandler(HTTPException)
     def handle_http_exception(error):
         responseToJSON = jsonify({'error': error.description})
-        responseToJSON.headers["Content-Type"] = "application/json"
+        responseToJSON.headers['Content-Type'] = 'application/json'
         responseToJSON.status_code = error.code
         return responseToJSON
 

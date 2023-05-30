@@ -2,7 +2,7 @@ from flask import Flask
 from .database import init_db
 
 
-def create_app(dbPath="students.db") -> Flask:
+def create_app(dbPath='students.db') -> Flask:
     app = Flask(__name__.split('.')[0])
 
     # importa os blueprints

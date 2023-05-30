@@ -16,23 +16,23 @@ def getAll():
     return student_dict_array
 
 
-def get(data, dataType="registration"):
+def get(data, dataType='registration'):
     dbStudent = repositories.findByEmail(
-        data) if dataType == "email" else repositories.findByRegister(data)
+        data) if dataType == 'email' else repositories.findByRegister(data)
 
     return sqliteRowToDict(dbStudent)
 
 
 def create(studentData):
-    previousStudentByEmail = get(studentData["email"], "email")
+    previousStudentByEmail = get(studentData['email'], 'email')
     previousStudentByRegistration = repositories.findByRegister(
-        studentData["matricula"]
+        studentData['matricula']
     )
 
     if len(previousStudentByEmail) != 0 or len(previousStudentByRegistration) != 0:
         abort(statusCodes.CONFLICT, messages.STUDENT_ALREADY_REGISTERED)
     repositories.createOne(studentData)
-    return get(studentData["matricula"])
+    return get(studentData['matricula'])
 
 
 def update(matricula, studentData):
@@ -41,7 +41,7 @@ def update(matricula, studentData):
         abort(statusCodes.NOT_FOUND, messages.STUDENT_NOT_FOUND)
 
     repositories.updateOne(matricula, studentData)
-    return get(studentData["matricula"])
+    return get(studentData['matricula'])
 
 
 def remove(matricula):

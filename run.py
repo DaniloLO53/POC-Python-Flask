@@ -8,7 +8,7 @@ app = create_app('students.db')
 @app.errorhandler(HTTPException)
 def handle_http_exception(error):
     responseToJSON = jsonify({'error': error.description})
-    responseToJSON.headers["Content-Type"] = "application/json"
+    responseToJSON.headers['Content-Type'] = 'application/json'
     responseToJSON.status_code = error.code
     return responseToJSON
 
