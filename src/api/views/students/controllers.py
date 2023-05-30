@@ -1,31 +1,31 @@
-from .services import findAllStudents, findStudent, postStudent, updateStudentByMatricula, destroyStudent
+from . import services
 from ...utils.statusCodes import statusCodes
 from flask import request, make_response, jsonify
 import json
 
 
-def getAllStudents():
-    students = findAllStudents()
+def getAll():
+    students = services.getAll()
     return make_response(jsonify(students), statusCodes.OK)
 
 
-def getStudentByRegistration(matricula):
-    student = findStudent(matricula)
+def get(matricula):
+    student = services.get(matricula)
     return make_response(jsonify(student), statusCodes.OK)
 
 
-def createStudent():
+def create():
     studentData = json.loads(request.data)
-    student = postStudent(studentData)
+    student = services.create(studentData)
     return make_response(jsonify(student), statusCodes.CREATED)
 
 
-def updateStudent(matricula):
+def update(matricula):
     studentData = json.loads(request.data)
-    student = updateStudentByMatricula(matricula, studentData)
+    student = services.update(matricula, studentData)
     return make_response(jsonify(student), statusCodes.CREATED)
 
 
-def removeStudent(matricula):
-    student = destroyStudent(matricula)
+def remove(matricula):
+    student = services.remove(matricula)
     return make_response(jsonify(student), statusCodes.CREATED)

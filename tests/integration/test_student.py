@@ -1,5 +1,5 @@
 from faker import Faker
-from src.api.views.students.services import findAllStudents
+from src.api.views.students.services import getAll
 
 fake = Faker()
 
@@ -19,7 +19,7 @@ def test_createStudent(client, app):
         response = client.post('/students', json=studentData)
 
         with app.app_context():
-            students = findAllStudents()
+            students = getAll()
             assert len(students) == 1
             assert response.json == studentData
             assert response.status.split(' ')[0] == '201'

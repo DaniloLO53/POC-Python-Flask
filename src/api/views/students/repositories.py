@@ -3,11 +3,11 @@ from src.database import query_db, get_db
 from markupsafe import escape
 
 
-def findAll():
+def findMany():
     return query_db('SELECT * FROM students')
 
 
-def findByMatricula(matricula):
+def findByRegister(matricula):
     query = (
         "SELECT matricula, nome, sobrenome, email, telefone, curso, nascimento "
         "FROM students "
@@ -27,8 +27,7 @@ def findByEmail(email):
     return query_db(query, (email,))
 
 
-def insertStudent(studentData):
-    print('INSERIONDO')
+def createOne(studentData):
     query_db(
         'INSERT INTO students(matricula, nome, sobrenome, email, telefone, curso, nascimento, updated_at)'
         'VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
@@ -44,12 +43,12 @@ def insertStudent(studentData):
         ]
     )
 
-    get_db().commit()  # Commit the changes to the database
+    get_db().commit()  # Commita pro db
     return
 
 
-def updateStudent(matricula, studentData):
-    student = query_db(
+def updateOne(matricula, studentData):
+    query_db(
         'UPDATE students SET matricula = ?, nome = ?, sobrenome = ?, email = ?, telefone = ?, curso = ?, nascimento = ?, updated_at = ? '
         'WHERE students.matricula = ?',
         [
@@ -65,14 +64,14 @@ def updateStudent(matricula, studentData):
         ]
     )
 
-    get_db().commit()  # Commit the changes to the database
+    get_db().commit()
 
-    return student
+    return
 
 
-def removeStudent(matricula):
+def removeOne(matricula):
     query_db('DELETE FROM students WHERE matricula = ?',
              [f'{escape(matricula)}'])
 
-    get_db().commit()  # Commit the changes to the database
+    get_db().commit()
     return

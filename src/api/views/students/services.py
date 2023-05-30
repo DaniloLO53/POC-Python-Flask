@@ -1,11 +1,12 @@
-from .repositories import findAll, findByMatricula, findByEmail, insertStudent, updateStudent, removeStudent
+from . import repositories
 from flask import abort
 from ...utils.statusCodes import statusCodes
 from ...utils.messages import messages
+from .utils import sqliteRowToDict
 
 
-def findAllStudents():
-    dbStudents = findAll()
+def getAll():
+    dbStudents = repositories.findMany()
     student_dict_array = [dict(data) for data in dbStudents]
 
     for student in student_dict_array:
@@ -15,45 +16,39 @@ def findAllStudents():
     return student_dict_array
 
 
-def findStudent(data, dataType="registration"):
-    dbStudent = findByEmail(
-        data) if dataType == "email" else findByMatricula(data)
+def get(data, dataType="registration"):
+    dbStudent = repositories.findByEmail(
+        data) if dataType == "email" else repositories.findByRegister(data)
 
-    if (len(dbStudent) != 0):
-        return dict(dbStudent[0])
-    return {}
+    return sqliteRowToDict(dbStudent)
 
 
-def postStudent(studentData):
-    previousStudentByEmail = findStudent(studentData["email"], "email")
-    previousStudentByRegistration = findStudent(
+def create(studentData):
+    previousStudentByEmail = get(studentData["email"], "email")
+    previousStudentByRegistration = repositories.findByRegister(
         studentData["matricula"]
     )
 
     if len(previousStudentByEmail) != 0 or len(previousStudentByRegistration) != 0:
         abort(statusCodes.CONFLICT, messages.STUDENT_ALREADY_REGISTERED)
-    insertStudent(studentData)
-
-    student = findStudent(studentData["matricula"])
-    return student
+    repositories.createOne(studentData)
+    return get(studentData["matricula"])
 
 
-def updateStudentByMatricula(matricula, studentData):
-    outdatedStudent = findStudent(matricula)
+def update(matricula, studentData):
+    outdatedStudent = get(matricula)
     if len(outdatedStudent) == 0:
         abort(statusCodes.NOT_FOUND, messages.STUDENT_NOT_FOUND)
 
-    updateStudent(matricula, studentData)
-
-    student = findStudent(studentData["matricula"])
-    return student
+    repositories.updateOne(matricula, studentData)
+    return get(studentData["matricula"])
 
 
-def destroyStudent(matricula):
-    student = findStudent(matricula)
+def remove(matricula):
+    student = get(matricula)
     if len(student) == 0:
         abort(statusCodes.NOT_FOUND, messages.STUDENT_NOT_FOUND)
 
-    removeStudent(matricula)
+    repositories.removeOne(matricula)
 
     return student
