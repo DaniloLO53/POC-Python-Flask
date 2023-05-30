@@ -5,7 +5,7 @@ from ..views.students.schemas import studentSchema
 import json
 
 
-def validateSchema(matricula):
+def validateSchema(matricula=0):
     studentData = json.loads(request.data)
     v = Validator(studentSchema)
     validation = v.validate(studentData)

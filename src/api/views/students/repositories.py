@@ -28,6 +28,7 @@ def findByEmail(email):
 
 
 def insertStudent(studentData):
+    print('INSERIONDO')
     query_db(
         'INSERT INTO students(matricula, nome, sobrenome, email, telefone, curso, nascimento, updated_at)'
         'VALUES(?, ?, ?, ?, ?, ?, ?, ?)',

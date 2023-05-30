@@ -7,6 +7,11 @@ from ...utils.messages import messages
 def findAllStudents():
     dbStudents = findAll()
     student_dict_array = [dict(data) for data in dbStudents]
+
+    for student in student_dict_array:
+        student.pop('updated_at', None)
+        student.pop('created_at', None)
+
     return student_dict_array
 
 
