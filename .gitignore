@@ -1,2 +1,4 @@
 __pycache__/
 .venv
+.students.db
+.students_test.db
