@@ -31,7 +31,6 @@ def app():
 def client(app):  # esse é o app definido acima
     with app.app_context():
         # Limpa o banco de dados antes de cada teste
-        print('BRH')
         query_db('DELETE FROM students')
         get_db().commit()
 

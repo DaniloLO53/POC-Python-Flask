@@ -49,7 +49,9 @@ def createOne(studentData):
 
 def updateOne(matricula, studentData):
     query_db(
-        'UPDATE students SET matricula = ?, nome = ?, sobrenome = ?, email = ?, telefone = ?, curso = ?, nascimento = ?, updated_at = ? '
+        'UPDATE students '
+        'SET matricula = ?, nome = ?, sobrenome = ?, email = ?, '
+        'telefone = ?, curso = ?, nascimento = ?, updated_at = ? '
         'WHERE students.matricula = ?',
         [
             studentData['matricula'],

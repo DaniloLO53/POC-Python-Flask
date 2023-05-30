@@ -1,36 +1,43 @@
-from flask import Blueprint
+from flask import Blueprint, make_response, jsonify
+from . import services
+from ...utils.statusCodes import statusCodes
+from flask import request, make_response, jsonify
+import json
 from ...middlewares.schemaValidator import validateSchema
 
 # cria blueprint para student
 studentBp = Blueprint('student', __name__)
 
 
-def wrap(*funcs):  # recebe os middlewares e o controller
-    # a requisição passa por todos os middlewares e o controller que essa função recebe
-    # no fim, é retornado o retorno do controller (a resposta http final)
-    def wrapped(*args, **kwargs):
-        finalReturn = None
-        for func in funcs:
-            # middlewares controller recebe os
-            finalReturn = func(*args, **kwargs)
-            # argumentos e valores que estao sendo passados para wrapped
-        return finalReturn  # retorna a reposta http do ultimo controller
-    return wrapped
+@studentBp.get('/students')
+def getAll():
+    students = services.getAll()
+    return make_response(jsonify(students), statusCodes.OK)
 
 
-def register_controllers():
-    # essa função resolve o problema de importação circular das rotas
-    from .controllers import getAll, get, create, update, remove
-
-    # Registra as rotas no bluePrint e o controller nas rotas
-    studentBp.get('/students')(getAll)
-    studentBp.get('/students/<matricula>')(get)
-    studentBp.put(
-        '/students/<matricula>', endpoint='update')(wrap(validateSchema, update))
-    studentBp.post(
-        '/students', endpoint='create')(wrap(validateSchema, create))
-    studentBp.delete(
-        '/students/<matricula>', endpoint='delete')(remove)
+@studentBp.get('/students/<matricula>')
+def get(matricula):
+    student = services.get(matricula)
+    return make_response(jsonify(student), statusCodes.OK)
 
 
-register_controllers()
+@studentBp.post('/students', endpoint="post")
+@validateSchema
+def create():
+    studentData = json.loads(request.data)
+    student = services.create(studentData)
+    return make_response(jsonify(student), statusCodes.CREATED)
+
+
+@studentBp.put('/students/<matricula>', endpoint="put")
+@validateSchema
+def update(matricula):
+    studentData = json.loads(request.data)
+    student = services.update(matricula, studentData)
+    return make_response(jsonify(student), statusCodes.CREATED)
+
+
+@studentBp.delete('/students/<matricula>')
+def remove(matricula):
+    student = services.remove(matricula)
+    return make_response(jsonify(student), statusCodes.CREATED)
