@@ -3,7 +3,7 @@
 <h2>:page_facing_up: Descrição</h2>
 <p>CRUD em uma tabela de estudantes de uma faculdade utilizando <strong>SQLite3</strong> e <strong>Flask</strong>.</p>
 
-<img src="./schema.png">
+<img src="./req_schema.png">
 </img>
 
 <h2>:gear: Funcionamento</h2>
