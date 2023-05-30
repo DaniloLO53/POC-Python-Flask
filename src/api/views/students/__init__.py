@@ -26,12 +26,12 @@ def register_controllers():
     # Registra as rotas no bluePrint e o controller nas rotas
     studentBp.get("/students")(getAllStudents)
     studentBp.get("/students/<matricula>")(getStudentByRegistration)
-    studentBp.post(
-        "/students", endpoint='create')(wrap(validateSchema, createStudent))
     studentBp.put(
         "/students/<matricula>", endpoint='update')(wrap(validateSchema, updateStudent))
+    studentBp.post(
+        "/students", endpoint='create')(wrap(validateSchema, createStudent))
     studentBp.delete(
-        "/students/<matricula>", endpoint='delete')(wrap(validateSchema, removeStudent))
+        "/students/<matricula>", endpoint='delete')(removeStudent)
 
 
 register_controllers()

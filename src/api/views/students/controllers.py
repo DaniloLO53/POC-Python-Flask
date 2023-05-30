@@ -1,6 +1,5 @@
 from .services import findAllStudents, findStudent, postStudent, updateStudentByMatricula, destroyStudent
 from ...utils.statusCodes import statusCodes
-from ...utils.messages import messages
 from flask import request, make_response, jsonify
 import json
 

@@ -1,4 +1,3 @@
-import json
 import time
 from src.database import query_db, get_db
 from markupsafe import escape
@@ -43,7 +42,6 @@ def insertStudent(studentData):
             int(time.time())
         ]
     )
-    print("Matricula no post: ", studentData["matricula"])
 
     get_db().commit()  # Commit the changes to the database
     return

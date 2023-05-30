@@ -1,6 +1,5 @@
 from .repositories import findAll, findByMatricula, findByEmail, insertStudent, updateStudent, removeStudent
-from flask import abort, jsonify
-import json
+from flask import abort
 from ...utils.statusCodes import statusCodes
 from ...utils.messages import messages
 
