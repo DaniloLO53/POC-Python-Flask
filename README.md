@@ -3,11 +3,11 @@
 <h2>Descrição</h2>
 <p>CRUD em uma tabela de estudantes de uma faculdade utilizando <strong>SQLite3</strong> e <strong>Flask</strong>.</p>
 
-<h2>Funcionamento</h2>
+<h2>:gear: Funcionamento</h2>
 <div>
   <ul>
     <li>
-      <h3>GET /students</h3>
+      <h3>:green_square: GET /students</h3>
       <span><strong>Payload:</strong> Nenhum</span>
       <br>
       <span><strong>Resposta:</strong> JSON com todos os estudantes</span>
@@ -105,7 +105,7 @@
       <br>
     </li>
     <li>
-      <h3>GET /students/1001</h3>
+      <h3>:green_square: GET /students/1001</h3>
       <span><strong>Payload:</strong> Nenhum</span>
       <br>
       <span><strong>Resposta:</strong> JSON com dados do estudante</span>
@@ -129,7 +129,7 @@
       <br>
     </li>
     <li>
-      <h3>POST /students</h3>
+      <h3>:blue_square: POST /students</h3>
       <span><strong>Payload:</strong> JSON com dados do estudante</span>
       <br>
       <span><strong>Resposta:</strong> JSON com dados do estudante</span>
@@ -154,7 +154,7 @@
       <br>
     </li>
     <li>
-      <h3>PUT /students/1001</h3>
+      <h3>:yellow_square: PUT /students/1001</h3>
       <span><strong>Payload:</strong> JSON com dados do estudante</span>
       <br>
       <span><strong>Resposta:</strong> JSON com dados atualizados do estudante</span>
@@ -179,7 +179,7 @@
       <br>
     </li>
     <li>
-      <h3>DELETE /students/1001</h3>
+      <h3>:red_square: DELETE /students/1001</h3>
       <span><strong>Payload:</strong> Nenhum</span>
       <br>
       <span><strong>Resposta:</strong> JSON com dados do estudante removido</span>
@@ -207,11 +207,13 @@
   
 </div>
 
-<h2>Para rodar o projeto</h2>
+<h2>:blue_heart: Para rodar o projeto</h2>
 <ol>
+  <li>Clone o repositório: <code>git clone git@github.com:DaniloLO53/POC-Python-Flask.git</code></li>
   <li>Abra o terminal na raíz do projeto</li>
   <li>Crie um ambiente virtual .venv <br> <code>python3 -m venv .venv</code></li>
   <li>Ative o ambiente virtual <br> <code>source .venv/bin/activate</code></li>
   <li>Instale as dependências necessárias <br> <code>pip install -r requirements.txt </code></li>
   <li>Inicie a aplicação <br> <code>flask --app run run</code></li>
 </ol>
+<strong>Pode ser necessário reiniciar o editor</strong>
