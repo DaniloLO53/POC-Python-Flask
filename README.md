@@ -1,6 +1,6 @@
 <h1>POC - FLASK</h1>
 
-<h2>Descrição</h2>
+<h2>:page_facing_up: Descrição</h2>
 <p>CRUD em uma tabela de estudantes de uma faculdade utilizando <strong>SQLite3</strong> e <strong>Flask</strong>.</p>
 
 <h2>:gear: Funcionamento</h2>
